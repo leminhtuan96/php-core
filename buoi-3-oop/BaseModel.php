@@ -21,9 +21,9 @@ class BaseModel
             $table = $this->table;
             $keys = array_keys($dataCreate);
             $columns = implode(', ', $keys);
-            $keysMap =  array_map(function($item){
+            $keysMap =  array_map(function ($item) {
                 return ":" . $item;
-            },$keys);
+            }, $keys);
             $valueColumn = implode(",", $keysMap);
             $sql = "INSERT INTO $table($columns) values ($valueColumn)";
             $stmt = $this->pdo->prepare($sql);

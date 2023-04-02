@@ -1,0 +1,90 @@
+<?php
+
+class ValidateService
+{
+    private $dataForm = [];
+    private $rules = [];
+
+    private $errors;
+
+    public function __construct($dataForm)
+    {
+        $this->dataForm = $dataForm;
+    }
+
+    public function setRules($rules)
+    {
+        $this->rules = $rules;
+    }
+
+    public function validate()
+    {
+        foreach ($this->rules as $field => $rule) {
+            $valueRule = $this->dataForm[$field];
+
+            //check rule have |
+            if (strpos($rule, '|')) {
+                $ruleArray = explode('|', $rule);
+                foreach ($ruleArray as $ruleItem) {
+                    //check tim kiem dau : nay khong
+                    if (strpos($rule, ':')) {
+                        $ruleOptionnal = explode(':', $ruleItem);
+                        $functionValidate = $ruleOptionnal[0] . 'Validate';
+                        $this->$functionValidate($valueRule, $field, $ruleOptionnal[1]);
+                    } else {
+                        $functionValidate = $rule . 'Validate';
+
+                        $this->$functionValidate($valueRule, $field);
+                    }
+                    // var_dump($valueRule);
+
+                }
+            }else {
+                $functionValidate = $rule . 'Validate';
+
+                $this->$functionValidate($valueRule, $field);
+            }
+        }
+    }
+
+    public function emailValidate($valueRule, $fieldName)
+    {
+        if (!filter_var($valueRule, FILTER_VALIDATE_EMAIL)) {
+            $this->errors[$fieldName][] = $fieldName . 'not format email';
+        }
+    }
+
+    public function requiredValidate($valueRule, $fieldName)
+    {
+        if (!$valueRule) {
+            $this->errors[$fieldName][] = $fieldName . ' not empty';
+        }
+    }
+    public function minValidate($valueRule, $fieldName, $min)
+    {
+        if (strlen($valueRule) < $min) {
+            $this->errors[$fieldName][] = $fieldName . ' min ' . $min . ' characters';
+        }
+    }
+
+    public function maxValidate($valueRule, $fieldName, $max)
+    {
+        if (strlen($valueRule) > $max) {
+            $this->errors[$fieldName][] = $fieldName . ' max ' . $max . ' characters';
+        }
+    }
+
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    public function counErrors()
+    {
+        if (is_array($this->errors) && count($this->errors) > 0) {
+            return true;
+        }
+        return false;
+    }
+}

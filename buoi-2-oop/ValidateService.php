@@ -44,12 +44,12 @@ class ValidateService
                 // echo "<br/>";
                 $ruleAndOptional = explode(':',$ruleItem);
                 $ruleName = $ruleAndOptional[0];
-                $optional = end($ruleAndOptional);
+                $optional = [end($ruleAndOptional)];
 
                 echo "<pre>";
                 print_r($ruleAndOptional);
                 $className = $this->ruleMapsClass[$ruleName];
-                $classNameInstance = new $className($optional);
+                $classNameInstance = new $className(...$optional);
                 if (!$classNameInstance->passedValidate($fielName, $valueRule)) 
                 { 
                     $this->errors[$fielName][] = $classNameInstance->getMessage($fielName);

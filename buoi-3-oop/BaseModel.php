@@ -15,8 +15,21 @@ class BaseModel
     }
     public function create($dataCreate)
     {
-        $dataCreate = "INSERT INTO products('name', 'discription', 'price')
-                    values ('tuan','san pham',300)";
+        $table = $this->table;
+        $keys = array_keys($dataCreate);
+        $columns = implode(', ', $keys);
+        $values = array_values($dataCreate);
+
+        $valueColumn = '';
+        foreach ( $values as $valueItem){
+            $valueColumn = $valueColumn . "'" . $valueItem . ",";
+        }
+        $valueColumn = rtrim($valueColumn, ',');
+
+        echo "<pre>";
+        print_r($valueColumn);
+        // $dataCreate = "INSERT INTO products('name', 'discription', 'price')
+        //             values ('tuan','san pham',300)";
     }
     public function conectDatabase()
     {

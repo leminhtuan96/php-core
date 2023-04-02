@@ -2,7 +2,7 @@
 
 $dataForm = [
     'name' => '',
-    'email' => ''
+    'email' => 'acbv@gmail.com'
 ];
 
 $rules = [
@@ -15,7 +15,8 @@ $rules = [
         'required',
         'email',
         'min:3',
-        'between:3,10'
+        'between:3,10',
+        'required_with:name',
     ]
 ];
 

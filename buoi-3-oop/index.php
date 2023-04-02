@@ -4,7 +4,7 @@ require(__DIR__ . '/Products.php');
 $productModel = new Products();
 $productModel->create([
     'name' => "san pham",
-    'description' =>"hello world",
+    'description' => "hello world",
     'price' => 200
 ]);
 

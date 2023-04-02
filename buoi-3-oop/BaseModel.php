@@ -17,31 +17,25 @@ class BaseModel
     }
     public function create($dataCreate)
     {
-        try{
+        try {
             $table = $this->table;
             $keys = array_keys($dataCreate);
             $columns = implode(', ', $keys);
-            $values = array_values($dataCreate);
-    
-            $valueColumn = '';
-            foreach ($values as $valueItem) {
-                $valueColumn = $valueColumn . "'" . $valueItem . "',";
-            }
-            $valueColumn = rtrim($valueColumn, ',');
-    
+            $keysMap =  array_map(function($item){
+                return ":" . $item;
+            },$keys);
+            $valueColumn = implode(",", $keysMap);
             $sql = "INSERT INTO $table($columns) values ($valueColumn)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute();
+            $stmt->execute($dataCreate);
             $id = $this->pdo->lastInsertId();
             if ($id) {
                 return $id;
             }
             return 'insert fail';
-        }catch (\PDOException $e) {
+        } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
-
-        // echo $sql;
     }
     public function conectDatabase()
     {

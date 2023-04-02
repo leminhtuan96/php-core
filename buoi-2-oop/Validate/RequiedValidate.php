@@ -5,17 +5,20 @@
 // require_once __DIR__ . '/Message.php';
 
 
-class RequiredValidate{
+class RequiredValidate
+{
 
 
-    public function passedValidate($fielName, $valueRule){
-        if($valueRule){
+    public function passedValidate($fielName, $valueRule)
+    {
+        if ($valueRule) {
             return true;
         }
         return false;
     }
 
-    public function getMessage($fielName){
+    public function getMessage($fielName)
+    {
         return $fielName . ' not emply';
     }
 }

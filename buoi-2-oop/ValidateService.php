@@ -3,7 +3,7 @@
 require(__DIR__ . '/Validate/RequiedValidate.php');
 require(__DIR__ . '/Validate/EmailValidate.php');
 require(__DIR__ . '/Validate/MinValidate.php');
-// require(__DIR__ . '/Validate/MaxValidate.php');
+require(__DIR__ . '/Validate/MaxValidate.php');
 require(__DIR__ . '/Validate/BetweenValidate.php');
 require(__DIR__ . '/Validate/QuiredValidate.php');
 
@@ -20,6 +20,7 @@ class ValidateService
         'min' => MinValidate::class,
         'between' => BetweenValidate::class,
         'required_with' => QuiredValidate::class,
+        'max' => MaxValidate::class
     ];
 
     public function __construct($dataForm)

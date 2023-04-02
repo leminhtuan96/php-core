@@ -8,7 +8,8 @@ $dataForm = [
 $rules = [
     'name' =>
     [
-        'required'
+        'required',
+        'max:10'
     ],
     'email' =>
     [

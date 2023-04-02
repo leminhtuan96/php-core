@@ -7,13 +7,22 @@
 
 class MaxValidate
 {
+    private $max;
+
+    public function __construct($max)
+    {
+        $this->max = $max;
+    }
     public function passedValidate($fielName, $valueRule)
     {
-        
+        if (strlen($this->max) >= $valueRule) {
+            return true;
+        }
+        return false;
     }
 
-    public function getMessage()
+    public function getMessage($fielName)
     {
-        return ' max characters';
+        return $fielName . ' max ' . $this->max . 'characters';
     }
 }

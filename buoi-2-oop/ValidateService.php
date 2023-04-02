@@ -30,6 +30,9 @@ class ValidateService
 
     public function setRules($rules)
     {
+        foreach ($rules as $fielName => $fielRule) {
+            $rules[$fielName] = explode('|', $fielRule);
+        }
         $this->rules = $rules;
     }
 

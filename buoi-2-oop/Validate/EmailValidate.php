@@ -5,7 +5,7 @@
 
 class EmailValidate
 {
-    public function passedValidate($fielName, $valueRule)
+    public function passedValidate($fielName, $valueRule, $dataForm)
     {
         if ($valueRule) {
             return true;

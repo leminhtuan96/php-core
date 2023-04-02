@@ -2,23 +2,28 @@
 
 $dataForm = [
     'name' => '',
-    'email' => 'acbv@gmail.com'
+    'email' => ''
 ];
 
+// $rules = [
+//     'name' =>
+//     [
+//         'required',
+//         'max:10'
+//     ],
+//     'email' =>
+//     [
+//         'required',
+//         'email',
+//         'min:3',
+//         'between:3,10',
+//         'required_with:name',
+//     ]
+// ];
+
 $rules = [
-    'name' =>
-    [
-        'required',
-        'max:10'
-    ],
-    'email' =>
-    [
-        'required',
-        'email',
-        'min:3',
-        'between:3,10',
-        'required_with:name',
-    ]
+    'name' => 'required',
+    'email' => 'required|email|min:3|between:3,10|required_with:name'
 ];
 
 // require(__DIR__ . '/ValidateService.php');

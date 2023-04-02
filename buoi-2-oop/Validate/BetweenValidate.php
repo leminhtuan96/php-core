@@ -16,7 +16,7 @@ class BetweenValidate
     }
 
 
-    public function passedValidate($fielName, $valueRule)
+    public function passedValidate($fielName, $valueRule, $dataForm)
     {
         if (strlen($this->min) <= $valueRule && strlen($this->max) >= $valueRule) {
             return true;

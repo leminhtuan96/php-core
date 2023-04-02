@@ -9,7 +9,7 @@ class RequiredValidate
 {
 
 
-    public function passedValidate($fielName, $valueRule)
+    public function passedValidate($fielName, $valueRule, $dataForm)
     {
         if ($valueRule) {
             return true;

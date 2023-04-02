@@ -13,7 +13,7 @@ class MaxValidate
     {
         $this->max = $max;
     }
-    public function passedValidate($fielName, $valueRule)
+    public function passedValidate($fielName, $valueRule, $dataForm)
     {
         if (strlen($this->max) >= $valueRule) {
             return true;
@@ -23,6 +23,6 @@ class MaxValidate
 
     public function getMessage($fielName)
     {
-        return $fielName . ' max ' . $this->max . 'characters';
+        return $fielName . ' max ' . $this->max . ' characters';
     }
 }

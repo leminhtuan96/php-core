@@ -14,7 +14,7 @@ class MinValidate
     }
 
 
-    public function passedValidate($fielName, $valueRule)
+    public function passedValidate($fielName, $valueRule, $dataForm)
     {
         if (strlen($this->min) <= $valueRule) {
             return true;

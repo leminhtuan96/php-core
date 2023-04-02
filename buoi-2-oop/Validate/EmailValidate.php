@@ -13,8 +13,11 @@ class EmailValidate
         return false;
     }
 
-    public function getMessage($fielName)
+    public function getMessage($fielName, $message)
     {
+        if ($message) {
+            return $message;
+        }
         return $fielName . ' format character';
     }
 }

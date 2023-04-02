@@ -22,8 +22,11 @@ class QuiredValidate
         return true;
     }
 
-    public function getMessage($fielName)
+    public function getMessage($fielName,$message)
     {
+        if ($message) {
+            return $message;
+        }
         return 'required with name';
     }
 }

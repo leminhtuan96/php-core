@@ -14,6 +14,8 @@ class ValidateService
 
     private $errors;
 
+    private $message;
+
     private $ruleMapsClass = [
         'required' => RequiredValidate::class,
         'email' => EmailValidate::class,
@@ -36,6 +38,10 @@ class ValidateService
         $this->rules = $rules;
     }
 
+    public function setMessages($message) {
+        $this->message = $message;
+    }
+
 
     public function validate()
     {
@@ -54,12 +60,15 @@ class ValidateService
                 $ruleName = $ruleAndOptional[0];
                 $optional = explode(',', end($ruleAndOptional));
 
-                echo "<pre>";
-                print_r($ruleAndOptional);
+                // echo "<pre>";
+                // print_r($ruleAndOptional);
                 $className = $this->ruleMapsClass[$ruleName];
                 $classNameInstance = new $className(...$optional);
-                if (!$classNameInstance->passedValidate($fielName, $valueRule, $this->dataForm)) {
-                    $this->errors[$fielName][] = $classNameInstance->getMessage($fielName);
+                if (!$classNameInstance->passedValidate($fielName, $valueRule, $this->dataForm)) 
+                {
+                    $keyMessage = $fielName . '.' . $ruleName;
+                    var_dump($keyMessage);
+                    $this->errors[$fielName][] = $classNameInstance->getMessage($fielName,$this->message[$keyMessage]??null);
                 }
             }
         }

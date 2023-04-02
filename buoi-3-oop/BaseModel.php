@@ -6,6 +6,8 @@ class BaseModel
 {
     private $table;
 
+    private $pdo;
+
     public function __construct($table)
     {
         echo '<pre/>';
@@ -15,21 +17,31 @@ class BaseModel
     }
     public function create($dataCreate)
     {
-        $table = $this->table;
-        $keys = array_keys($dataCreate);
-        $columns = implode(', ', $keys);
-        $values = array_values($dataCreate);
-
-        $valueColumn = '';
-        foreach ( $values as $valueItem){
-            $valueColumn = $valueColumn . "'" . $valueItem . ",";
+        try{
+            $table = $this->table;
+            $keys = array_keys($dataCreate);
+            $columns = implode(', ', $keys);
+            $values = array_values($dataCreate);
+    
+            $valueColumn = '';
+            foreach ($values as $valueItem) {
+                $valueColumn = $valueColumn . "'" . $valueItem . "',";
+            }
+            $valueColumn = rtrim($valueColumn, ',');
+    
+            $sql = "INSERT INTO $table($columns) values ($valueColumn)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $id = $this->pdo->lastInsertId();
+            if ($id) {
+                return $id;
+            }
+            return 'insert fail';
+        }catch (\PDOException $e) {
+            throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
-        $valueColumn = rtrim($valueColumn, ',');
 
-        echo "<pre>";
-        print_r($valueColumn);
-        // $dataCreate = "INSERT INTO products('name', 'discription', 'price')
-        //             values ('tuan','san pham',300)";
+        // echo $sql;
     }
     public function conectDatabase()
     {
@@ -42,8 +54,7 @@ class BaseModel
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset;port=$port";
         try {
-            $pdo = new \PDO($dsn, $user, $pass);
-            var_dump('connet success');
+            $this->pdo = new \PDO($dsn, $user, $pass);
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }

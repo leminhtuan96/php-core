@@ -4,6 +4,7 @@ require(__DIR__ . '/Validate/RequiedValidate.php');
 require(__DIR__ . '/Validate/EmailValidate.php');
 require(__DIR__ . '/Validate/MinValidate.php');
 // require(__DIR__ . '/Validate/MaxValidate.php');
+require(__DIR__ . '/Validate/BetweenValidate.php');
 
 class ValidateService
 {
@@ -15,7 +16,8 @@ class ValidateService
     private $ruleMapsClass = [
         'required' => RequiredValidate::class,
         'email' => EmailValidate::class,
-        'min' => MinValidate::class
+        'min' => MinValidate::class,
+        'between' => BetweenValidate::class
     ];
 
     public function __construct($dataForm)
@@ -44,7 +46,7 @@ class ValidateService
                 // echo "<br/>";
                 $ruleAndOptional = explode(':',$ruleItem);
                 $ruleName = $ruleAndOptional[0];
-                $optional = [end($ruleAndOptional)];
+                $optional = explode(',',end($ruleAndOptional));
 
                 echo "<pre>";
                 print_r($ruleAndOptional);

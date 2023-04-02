@@ -14,7 +14,8 @@ $rules = [
     [
         'required',
         'email',
-        'min:3'
+        'min:3',
+        'between:3,10'
     ]
 ];
 
